@@ -52,13 +52,13 @@ contract MarketPlace {
         // Fetch seller
         address payable _seller = _product.owner;
         // Make sure the product has a valid id
-        require(_product.id > 0 && _product.id <= productCount);
+        require(_product.id > 0 && _product.id <= productCount, "Invalid product ID detected");
         // Ensure that the Ether is enough
-        require(msg.value >= _product.price);
+        require(msg.value >= _product.price, "Value is less than product price");
         // Require that the product has not been purchased
-        require(!_product.purchased);
+        require(!_product.purchased, "Product has already been sold");
         // Require that the buyer is not the seller
-        require(_seller != msg.sender);
+        require(_seller != msg.sender, "Seller can not be the buyer");
         // Transfer ownership
         _product.owner = msg.sender;
         // Mark as purchased
